@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC.CWindows12 | 500+ 系统镜像下载</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基本样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --success-color: #4ade80;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 70%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(30deg);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* 搜索和筛选区域 */
+        .filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+        }
+        
+        .platform-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .platform-btn {
+            padding: 10px 20px;
+            background: #f1f3f9;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .platform-btn:hover {
+            background: #e2e6ef;
+        }
+        
+        .platform-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* 镜像网格 */
+        .mirrors-container {
+            margin-bottom: 3rem;
+        }
+        
+        .mirrors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .mirror-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .mirror-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mirror-header {
+            padding: 20px 20px 15px;
+            border-bottom: 1px solid #f1f3f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mirror-platform {
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .platform-windows {
+            background: #0078d4;
+            color: white;
+        }
+        
+        .platform-linux {
+            background: #f1502f;
+            color: white;
+        }
+        
+        .platform-mac {
+            background: #000000;
+            color: white;
+        }
+        
+        .platform-android {
+            background: #3ddc84;
+            color: white;
+        }
+        
+        .platform-other {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .mirror-arch {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .mirror-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        .mirror-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .mirror-description {
+            color: var(--gray-color);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .mirror-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--gray-color);
+            margin-top: auto;
+        }
+        
+        .mirror-footer {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #f1f3f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mirror-version {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .download-btn {
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .download-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .official-badge {
+            font-size: 0.7rem;
+            background: var(--success-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+        
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+            gap: 10px;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .page-btn:hover {
+            background: #f1f3f9;
+        }
+        
+        .page-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #343a40;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 992px) {
+            .mirrors-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+            
+            .platform-filters {
+                justify-content: center;
+            }
+            
+            .mirrors-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            }
+        }
+        
+        /* 加载动画 */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f1f3f9;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* 初始加载样式 */
+        #initialLoad {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        #initialLoad .spinner {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-server"></i>
+                    <div>
+                        <h1>跨平台系统镜像库</h1>
+                        <p>收录500+个系统镜像，一站式下载服务</p>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">系统镜像</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">平台架构</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">持续更新</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 搜索和筛选区域 -->
+        <section class="filters">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜索系统镜像，如：Windows 11, Ubuntu, macOS...">
+            </div>
+            <div class="platform-filters">
+                <button class="platform-btn active" data-platform="all">
+                    <i class="fas fa-th"></i> 全部
+                </button>
+                <button class="platform-btn" data-platform="windows">
+                    <i class="fab fa-windows"></i> Windows
+                </button>
+                <button class="platform-btn" data-platform="linux">
+                    <i class="fab fa-linux"></i> Linux
+                </button>
+                <button class="platform-btn" data-platform="mac">
+                    <i class="fab fa-apple"></i> macOS
+                </button>
+                <button class="platform-btn" data-platform="android">
+                    <i class="fab fa-android"></i> Android
+                </button>
+                <button class="platform-btn" data-platform="other">
+                    <i class="fas fa-cube"></i> 其他
+                </button>
+            </div>
+        </section>
+
+        <!-- 镜像网格区域 -->
+        <section class="mirrors-container">
+            <!-- 初始加载提示 -->
+            <div id="initialLoad" class="loader">
+                <div class="spinner"></div>
+                <p>正在加载系统镜像库...</p>
+            </div>
+            
+            <div id="mirrorsGrid" class="mirrors-grid" style="display: none;">
+                <!-- 镜像卡片将通过JavaScript动态生成 -->
+            </div>
+            
+            <!-- 加载指示器 -->
+            <div id="loader" class="loader hidden">
+                <div class="spinner"></div>
+            </div>
+            
+            <!-- 无结果提示 -->
+            <div id="noResults" class="hidden" style="text-align: center; padding: 3rem; color: var(--gray-color);">
+                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h3>未找到匹配的系统镜像</h3>
+                <p>请尝试其他搜索词或筛选条件</p>
+            </div>
+        </section>
+
+        <!-- 分页 -->
+        <div class="pagination" id="pagination">
+            <!-- 分页按钮将通过JavaScript动态生成 -->
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>我们致力于提供最新、最全的系统镜像下载服务，所有镜像均来自官方或可信来源，确保安全可靠。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Windows 镜像</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Linux 发行版</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> macOS 版本</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> 服务器系统</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>支持平台</h3>
+                    <ul class="footer-links">
+                        <li><i class="fab fa-windows"></i> Windows (10, 11, Server)</li>
+                        <li><i class="fab fa-linux"></i> Linux (Ubuntu, Fedora, CentOS)</li>
+                        <li><i class="fab fa-apple"></i> macOS (Ventura, Monterey)</li>
+                        <li><i class="fab fa-android"></i> Android (AOSP, Custom ROMs)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; MC.CWindows12跨平台系统镜像库.所有系统镜像版权归各自开发商所有。</p>
+                <p style="margin-top: 10px; font-size: 0.8rem;"></p>
+          </div>
+        </div>
+    </footer>
+
+    <script>
+        // 系统镜像数据 - 简化版本，避免生成过多数据导致性能问题
+        const mirrorsData = [
+            {
+                id: 1,
+                name: "Windows 11",
+                description: "微软最新桌面操作系统，提供现代化的界面和增强的性能",
+                platform: "windows",
+                version: "23H2",
+                arch: "x64",
+                size: "5.2 GB",
+                official: true,
+                url: "https://www.microsoft.com/software-download/windows11"
+            },
+            {
+                id: 2,
+                name: "Ubuntu 22.04 LTS",
+                description: "最流行的Linux发行版，长期支持版本，适合桌面和服务器",
+                platform: "linux",
+                version: "22.04.3",
+                arch: "x64/ARM",
+                size: "4.6 GB",
+                official: true,
+                url: "https://ubuntu.com/download/desktop"
+            },
+            {
+                id: 3,
+                name: "macOS Ventura",
+                description: "苹果最新桌面操作系统，带来全新的台前调度和连续互通功能",
+                platform: "mac",
+                version: "13.5",
+                arch: "ARM64",
+                size: "12 GB",
+                official: true,
+                url: "https://www.apple.com/macos/ventura/"
+            },
+            {
+                id: 4,
+                name: "Android 13",
+                description: "Google最新移动操作系统，提供更好的隐私控制和Material You设计",
+                platform: "android",
+                version: "13.0",
+                arch: "ARM64",
+                size: "2.1 GB",
+                official: true,
+                url: "https://developer.android.com/about/versions/13"
+            },
+            {
+                id: 5,
+                name: "Fedora 38",
+                description: "前沿的Linux发行版，集成最新开源技术，适合开发者和爱好者",
+                platform: "linux",
+                version: "38",
+                arch: "x64",
+                size: "2.0 GB",
+                official: true,
+                url: "https://fedoraproject.org/workstation/download/"
+            },
+            {
+                id: 6,
+                name: "Windows Server 2022",
+                description: "微软最新服务器操作系统，提供企业级安全性和混合云能力",
+                platform: "windows",
+                version: "2022",
+                arch: "x64",
+                size: "5.8 GB",
+                official: true,
+                url: "https://www.microsoft.com/windows-server"
+            },
+            {
+                id: 7,
+                name: "Debian 12",
+                description: "稳定可靠的Linux发行版，以其稳定性和广泛的软件包支持闻名",
+                platform: "linux",
+                version: "12.1",
+                arch: "x64/ARM",
+                size: "3.5 GB",
+                official: true,
+                url: "https://www.debian.org/distrib/"
+            },
+            {
+                id: 8,
+                name: "Arch Linux",
+                description: "轻量级灵活的Linux发行版，采用滚动更新，适合高级用户",
+                platform: "linux",
+                version: "2023.08",
+                arch: "x64",
+                size: "800 MB",
+                official: true,
+                url: "https://archlinux.org/download/"
+            },
+            {
+                id: 9,
+                name: "Kali Linux",
+                description: "专为渗透测试和网络安全审计设计的Linux发行版",
+                platform: "linux",
+                version: "2023.3",
+                arch: "x64/ARM",
+                size: "3.8 GB",
+                official: true,
+                url: "https://www.kali.org/get-kali/"
+            },
+            {
+                id: 10,
+                name: "CentOS Stream",
+                description: "社区支持的Linux发行版，介于Fedora和RHEL之间的中间流",
+                platform: "linux",
+                version: "9",
+                arch: "x64",
+                size: "9.4 GB",
+                official: true,
+                url: "https://www.centos.org/centos-stream/"
+            },
+            {
+                id: 11,
+                name: "FreeBSD",
+                description: "先进的类Unix操作系统，注重性能、稳定性和网络功能",
+                platform: "other",
+                version: "13.2",
+                arch: "x64/ARM",
+                size: "700 MB",
+                official: true,
+                url: "https://www.freebsd.org/where/"
+            },
+            {
+                id: 12,
+                name: "LineageOS",
+                description: "基于Android的开源操作系统，为多种设备提供现代Android体验",
+                platform: "android",
+                version: "20",
+                arch: "多种",
+                size: "1.2 GB",
+                official: true,
+                url: "https://lineageos.org/"
+            },
+            {
+                id: 13,
+                name: "Windows 10 LTSC",
+                description: "Windows 10长期服务频道版本，提供更稳定的企业体验",
+                platform: "windows",
+                version: "21H2",
+                arch: "x64",
+                size: "4.8 GB",
+                official: true,
+                url: "https://www.microsoft.com/windows/enterprise"
+            },
+            {
+                id: 14,
+                name: "ReactOS",
+                description: "开源操作系统，旨在与Windows NT应用程序和驱动程序兼容",
+                platform: "other",
+                version: "0.4.14",
+                arch: "x86",
+                size: "150 MB",
+                official: true,
+                url: "https://reactos.org/download/"
+            },
+            {
+                id: 15,
+                name: "Tails",
+                description: "注重隐私的Live操作系统，通过Tor网络引导，不留痕迹",
+                platform: "linux",
+                version: "5.12",
+                arch: "x64",
+                size: "1.3 GB",
+                official: true,
+                url: "https://tails.boum.org/install/index.en.html"
+            },
+            {
+                id: 16,
+                name: "Windows 10 Pro",
+                description: "Windows 10专业版，适用于商业用户和高级用户",
+                platform: "windows",
+                version: "22H2",
+                arch: "x64",
+                size: "4.5 GB",
+                official: true,
+                url: "https://www.microsoft.com/software-download/windows10"
+            },
+            {
+                id: 17,
+                name: "Ubuntu Server",
+                description: "Ubuntu服务器版本，专为服务器环境优化",
+                platform: "linux",
+                version: "22.04 LTS",
+                arch: "x64/ARM",
+                size: "1.2 GB",
+                official: true,
+                url: "https://ubuntu.com/download/server"
+            },
+            {
+                id: 18,
+                name: "macOS Monterey",
+                description: "macOS Monterey，提供通用控制和快捷指令等功能",
+                platform: "mac",
+                version: "12.6",
+                arch: "x64/ARM64",
+                size: "11 GB",
+                official: true,
+                url: "https://www.apple.com/macos/monterey/"
+            },
+            {
+                id: 19,
+                name: "Android 12",
+                description: "Android 12，引入Material You设计语言",
+                platform: "android",
+                version: "12.0",
+                arch: "ARM64",
+                size: "2.0 GB",
+                official: true,
+                url: "https://developer.android.com/about/versions/12"
+            },
+            {
+                id: 20,
+                name: "Linux Mint",
+                description: "基于Ubuntu的Linux发行版，提供熟悉的桌面体验",
+                platform: "linux",
+                version: "21.1",
+                arch: "x64",
+                size: "2.5 GB",
+                official: true,
+                url: "https://linuxmint.com/download.php"
+            },
+            {
+                id: 21,
+                name: "openSUSE Leap",
+                description: "稳定的Linux发行版，适合企业和日常使用",
+                platform: "linux",
+                version: "15.4",
+                arch: "x64",
+                size: "4.3 GB",
+                official: true,
+                url: "https://get.opensuse.org/leap/"
+            },
+            {
+                id: 22,
+                name: "Manjaro Linux",
+                description: "基于Arch的用户友好Linux发行版",
+                platform: "linux",
+                version: "22.0",
+                arch: "x64",
+                size: "3.2 GB",
+                official: true,
+                url: "https://manjaro.org/download/"
+            },
+            {
+                id: 23,
+                name: "Windows 8.1",
+                description: "Windows 8.1，微软过渡性操作系统",
+                platform: "windows",
+                version: "Update 1",
+                arch: "x64",
+                size: "4.0 GB",
+                official: true,
+                url: "https://www.microsoft.com/software-download/windows8"
+            },
+            {
+                id: 24,
+                name: "Android 11",
+                description: "Android 11，改进的隐私控制和对话通知",
+                platform: "android",
+                version: "11.0",
+                arch: "ARM64",
+                size: "1.8 GB",
+                official: true,
+                url: "https://developer.android.com/about/versions/11"
+            },
+            {
+                id: 25,
+                name: "Elementary OS",
+                description: "基于Ubuntu的美观Linux发行版",
+                platform: "linux",
+                version: "7.0",
+                arch: "x64",
+                size: "1.8 GB",
+                official: true,
+                url: "https://elementary.io/"
+            }
+        ];
+
+        // 当前显示的数据
+        let currentMirrors = mirrorsData;
+        let currentPage = 1;
+        const mirrorsPerPage = 12;
+        let currentPlatform = "all";
+        let currentSearch = "";
+
+        // DOM元素
+        const mirrorsGrid = document.getElementById('mirrorsGrid');
+        const loader = document.getElementById('loader');
+        const noResults = document.getElementById('noResults');
+        const searchInput = document.getElementById('searchInput');
+        const platformBtns = document.querySelectorAll('.platform-btn');
+        const pagination = document.getElementById('pagination');
+        const initialLoad = document.getElementById('initialLoad');
+
+        // 初始化 - 使用window.onload确保所有资源加载完成
+        window.onload = function() {
+            // 隐藏初始加载提示
+            initialLoad.style.display = 'none';
+            // 显示镜像网格
+            mirrorsGrid.style.display = 'grid';
+            
+            // 显示初始镜像
+            renderMirrors();
+            
+            // 设置平台筛选按钮事件
+            platformBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    platformBtns.forEach(b => b.classList.remove('active'));
+                    // 为当前按钮添加active类
+                    this.classList.add('active');
+                    
+                    // 获取平台
+                    currentPlatform = this.getAttribute('data-platform');
+                    currentPage = 1;
+                    
+                    // 过滤并渲染镜像
+                    filterMirrors();
+                });
+            });
+            
+            // 设置搜索输入事件
+            searchInput.addEventListener('input', function() {
+                currentSearch = this.value.trim().toLowerCase();
+                currentPage = 1;
+                
+                // 过滤并渲染镜像
+                filterMirrors();
+            });
+        };
+
+        // 过滤镜像函数
+        function filterMirrors() {
+            // 根据平台和搜索词过滤
+            currentMirrors = mirrorsData.filter(mirror => {
+                // 平台筛选
+                const platformMatch = currentPlatform === "all" || mirror.platform === currentPlatform;
+                
+                // 搜索筛选
+                const searchMatch = currentSearch === "" || 
+                    mirror.name.toLowerCase().includes(currentSearch) ||
+                    mirror.description.toLowerCase().includes(currentSearch) ||
+                    mirror.version.toLowerCase().includes(currentSearch);
+                
+                return platformMatch && searchMatch;
+            });
+            
+            // 渲染过滤后的镜像
+            renderMirrors();
+        }
+
+        // 渲染镜像函数
+        function renderMirrors() {
+            // 显示加载指示器
+            loader.classList.remove('hidden');
+            mirrorsGrid.innerHTML = '';
+            
+            // 计算总页数
+            const totalPages = Math.ceil(currentMirrors.length / mirrorsPerPage);
+            
+            // 如果无结果
+            if (currentMirrors.length === 0) {
+                loader.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                pagination.innerHTML = '';
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+            
+            // 获取当前页的镜像
+            const startIndex = (currentPage - 1) * mirrorsPerPage;
+            const endIndex = startIndex + mirrorsPerPage;
+            const pageMirrors = currentMirrors.slice(startIndex, endIndex);
+            
+            // 模拟网络延迟
+            setTimeout(() => {
+                // 渲染镜像卡片
+                pageMirrors.forEach(mirror => {
+                    const mirrorCard = createMirrorCard(mirror);
+                    mirrorsGrid.appendChild(mirrorCard);
+                });
+                
+                // 隐藏加载指示器
+                loader.classList.add('hidden');
+                
+                // 渲染分页
+                renderPagination(totalPages);
+            }, 300);
+        }
+
+        // 创建镜像卡片
+        function createMirrorCard(mirror) {
+            const card = document.createElement('div');
+            card.className = 'mirror-card';
+            
+            // 平台类名
+            const platformClass = `platform-${mirror.platform}`;
+            
+            // 平台图标
+            const platformIcons = {
+                windows: 'fab fa-windows',
+                linux: 'fab fa-linux',
+                mac: 'fab fa-apple',
+                android: 'fab fa-android',
+                other: 'fas fa-cube'
+            };
+            
+            card.innerHTML = `
+                <div class="mirror-header">
+                    <span class="mirror-platform ${platformClass}">
+                        <i class="${platformIcons[mirror.platform]}"></i> ${mirror.platform.toUpperCase()}
+                    </span>
+                    <span class="mirror-arch">
+                        <i class="fas fa-microchip"></i> ${mirror.arch}
+                    </span>
+                </div>
+                <div class="mirror-body">
+                    <h3 class="mirror-name">${mirror.name}</h3>
+                    <p class="mirror-description">${mirror.description}</p>
+                    <div class="mirror-meta">
+                        <span><i class="fas fa-hdd"></i> ${mirror.size}</span>
+                        <span><i class="fas fa-calendar-alt"></i> 2023年更新</span>
+                    </div>
+                </div>
+                <div class="mirror-footer">
+                    <span class="mirror-version">版本 ${mirror.version}</span>
+                    <a href="${mirror.url}" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> 下载
+                        ${mirror.official ? '<span class="official-badge">官方</span>' : ''}
+                    </a>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // 渲染分页
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // 上一页按钮
+            paginationHTML += `
+                <button class="page-btn prev-btn" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+            
+            // 页码按钮
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHTML += `
+                    <button class="page-btn ${i === currentPage ? 'active' : ''}">${i}</button>
+                `;
+            }
+            
+            // 下一页按钮
+            paginationHTML += `
+                <button class="page-btn next-btn" ${currentPage === totalPages ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `;
+            
+            pagination.innerHTML = paginationHTML;
+            
+            // 添加分页按钮事件
+            document.querySelectorAll('.page-btn').forEach((btn) => {
+                if (btn.classList.contains('prev-btn')) {
+                    btn.addEventListener('click', () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            renderMirrors();
+                        }
+                    });
+                } else if (btn.classList.contains('next-btn')) {
+                    btn.addEventListener('click', () => {
+                        if (currentPage < totalPages) {
+                            currentPage++;
+                            renderMirrors();
+                        }
+                    });
+                } else if (!btn.classList.contains('prev-btn') && !btn.classList.contains('next-btn')) {
+                    // 页码按钮
+                    const pageNum = parseInt(btn.textContent);
+                    if (!isNaN(pageNum)) {
+                        btn.addEventListener('click', () => {
+                            currentPage = pageNum;
+                            renderMirrors();
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
