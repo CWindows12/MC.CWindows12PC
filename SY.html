@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC.CWindows12 所有</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        /* 标题栏样式 */
+        .header {
+            background: rgba(30, 30, 46, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b, #86a8e7, #91eae4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header h1 i {
+            font-size: 2.5rem;
+        }
+        
+        .header-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .header-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 按钮容器样式 */
+        .button-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 25px;
+        }
+        
+        /* 按钮样式 */
+        .link-button {
+            background: rgba(30, 30, 46, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-button:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(40, 40, 60, 0.9);
+        }
+        
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .link-button:hover::before {
+            left: 100%;
+        }
+        
+        .button-icon {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .link-button:hover .button-icon {
+            transform: scale(1.2);
+        }
+        
+        .button-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .button-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .button-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .button-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .header-links {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .button-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header-link {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* 自定义背景图片说明 */
+        .bg-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            max-width: 300px;
+            z-index: 100;
+        }
+        
+        .bg-info a {
+            color: #86a8e7;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 标题栏 -->
+    <header class="header">
+        <h1>
+            <i class="fas fa-compass"></i> MC.CWindows12所有
+        </h1>
+        <div class="header-links"> </div>
+    </header>
+    
+    <!-- 按钮网格 -->
+<main class="button-grid">
+        <!-- 25个按钮 -->
+        <a href="https://cwindows12.github.io/MC.CWindows12PC/MC.CWindows12PC.html" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">主官网</div>
+            <div class="button-desc">MC.CWindows12主官网</div>
+        </a>
+        
+        <a href="https://www.123912.com/s/iK0lTd-VaPWh" target="_blank" class="link-button">
+        <div class="button-icon"> </div>
+            <div class="button-title">资源</div>
+            <div class="button-desc">资源下载</div>
+  </a>
+        
+        <a href="https://cwindows12.github.io/MC.CWindows12PC/MC.CWindows12ZY.html" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">更多资源</div>
+            <div class="button-desc">下载更多资源</div>
+        </a>
+        
+        <a href="https://www.123865.com/s/iK0lTd-wOsWh" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">MC</div>
+            <div class="button-desc">下载MC资源</div>
+        </a>
+        
+        <a href="https://www.curseforge.com/" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">MC资源</div>
+            <div class="button-desc">下载更多MC资源</div>
+        </a>
+        
+        <a href="https://cwindows12.github.io/MC.CWindows12PC/MC.CWindows12JXZY" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">镜像资源</div>
+            <div class="button-desc">下载镜像资源</div>
+        </a>
+        
+        <a href="https://cwindows12.github.io/MC.CWindows12PC/MC.CWindows12WX.html" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">维修教程</div>
+            <div class="button-desc">分享维修1教程</div>
+        </a>
+        
+        <a href="https://cwindows12.github.io/CWindowsMC/Untitled-5.html" target="_blank" class="link-button">
+            <div class="button-icon">
+                <i class="fab fa-netflix"></i>
+            </div>
+            <div class="button-title">MC公告</div>
+            <div class="button-desc">MC公告</div>
+        </a>
+        
+  <a href="https://cwindows12.github.io/CWindowsGW/Untitled-2.html" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">公告</div>
+  <div class="button-desc">官网公告</div>
+  </a>
+        
+        <a href="https://cwindows12.github.io/CWindowsLX/Untitled-4.html" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">微信</div>
+            <div class="button-desc">添加微信联系方式</div>
+        </a>
+        
+        <a href="https://cwindows12.github.io/CWindowsRG/Untitled-3.html" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">支持</div>
+            <div class="button-desc">人工在线服务</div>
+        </a>
+        
+        <a href="https://cwindows12.github.io/CWindows12PC/CWindows12PCYP.html" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">CWindows12云盘</div>
+            <div class="button-desc">云存储云盘</div>
+        </a>
+        
+        <a href="https://cwindows12.github.io/CWindows-ZH/CWindows12ZH.html" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">CWindows12账号</div>
+            <div class="button-desc">CWindows12账号</div>
+        </a>
+        
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAQzSA6hR9KYzoX0PSk23vYTD68nnJkEnwneI3EkbZrgY?from_tab_name=main" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">MC.CWindows12</div>
+            <div class="button-desc">作者抖音首页</div>
+  </a>
+        
+        <a href="https://windngzs.mysxl.cn" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">Windows电脑工作室</div>
+            <div class="button-desc">合作伙伴</div>
+        </a>
+        
+        <a href="https://www.gwindows.top/" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">GWindows&nbsp;</div>
+            <div class="button-desc">合作伙伴</div>
+        </a>
+        
+        <a href="https://jwdngzs.mysxl.cn/" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">家伟说电脑</div>
+            <div class="button-desc">合作伙伴</div>
+        </a>
+        
+        <a href="https://www.douyin.com/user/MS4wLjABAAAADp_N2NNInwIogORqrmuqL3vzRmkjmn9ClF4j90ZJlgs?from_tab_name=main" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">DONNY LEE</div>
+            <div class="button-desc">合作伙伴</div>
+        </a>
+        
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAkQ1RENeIcWDdHIWJAnA3ql-mAiTYzI6iyZKnB3XsJtckAvnX0s8v2bi9hQmQ_j3F?from_tab_name=main" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title">木薯说电脑</div>
+            <div class="button-desc">合作伙伴</div>
+        </a>
+        
+        <a href="" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title"></div>
+            <div class="button-desc"></div>
+        </a>
+        
+        <a href="" target="_blank" class="link-button">
+            <div class="button-icon">
+                <i class="fab fa-adobe"></i>
+            </div>
+            <div class="button-title"></div>
+            <div class="button-desc"></div>
+        </a>
+        
+        <a href="" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title"></div>
+            <div class="button-desc"></div>
+        </a>
+        
+        <a href="" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title"></div>
+            <div class="button-desc"></div>
+        </a>
+        
+        <a href="" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title"></div>
+            <div class="button-desc"></div>
+        </a>
+        
+        <a href="" target="_blank" class="link-button">
+            <div class="button-icon"> </div>
+            <div class="button-title"></div>
+            <div class="button-desc"></div>
+        </a>
+</main>
+    
+    <!-- 背景图片信息 -->
+<script>
+        // 添加点击按钮的轻微反馈
+        document.querySelectorAll('.link-button, .header-link').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // 创建涟漪效果
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                
+                // 获取按钮位置和大小
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                // 设置涟漪样式
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                // 添加到按钮中
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                // 动画结束后移除涟漪元素
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // 添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 页面加载时的轻微动画
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // 按钮逐个显示
+            const buttons = document.querySelectorAll('.link-button');
+            buttons.forEach((button, index) => {
+                button.style.opacity = '0';
+                button.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    button.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    button.style.opacity = '1';
+                    button.style.transform = 'translateY(0)';
+                }, 100 + index * 30);
+            });
+        });
+    </script>
+</body>
+</html>
